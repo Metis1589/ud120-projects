@@ -16,7 +16,23 @@
 """
 
 import pickle
+import json
 
 enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "r"))
+
+enron_array_data = json.loads(json.dumps(enron_data))
+
+ret = ''
+count = 0;
+for j in enron_array_data:
+    # ret = ret+" "+enron_array_data[j]
+    if(enron_array_data[j]['email_address']!="NaN"):
+        count = count + 1
+
+    print (enron_array_data[j]['email_address'], enron_array_data[j]['email_address']=="NaN")
+    print "\n\r"
+
+print count
+# print json.dumps(enron_data, sort_keys=True, indent=4, separators=(',', ': '))
 
 

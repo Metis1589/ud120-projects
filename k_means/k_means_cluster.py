@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import sys
 sys.path.append("../tools/")
 from feature_format import featureFormat, targetFeatureSplit
+from sklearn.cluster import KMeans
 
 
 
@@ -30,7 +31,7 @@ def Draw(pred, features, poi, mark_poi=False, name="image.png", f1_name="feature
     if mark_poi:
         for ii, pp in enumerate(pred):
             if poi[ii]:
-                plt.scatter(features[ii][0], features[ii][1], color="r", marker="*")
+                plt.scatter(features[ii][0], features[ii][2], color="r", marker="*")
     plt.xlabel(f1_name)
     plt.ylabel(f2_name)
     plt.savefig(name)
@@ -48,11 +49,11 @@ data_dict.pop("TOTAL", 0)
 ### can be any key in the person-level dictionary (salary, director_fees, etc.) 
 feature_1 = "salary"
 feature_2 = "exercised_stock_options"
+feature_3 = "total_payments"
 poi  = "poi"
 features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
-
 
 ### in the "clustering with 3 features" part of the mini-project,
 ### you'll want to change this line to 
@@ -64,7 +65,8 @@ plt.show()
 
 ### cluster here; create predictions of the cluster labels
 ### for the data and store them to a list called pred
-
+kmeans = KMeans(n_clusters=2, random_state=0).fit(finance_features)
+pred = kmeans.predict(finance_features)
 
 
 

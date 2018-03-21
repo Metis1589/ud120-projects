@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+import heapq
 
 def outlierCleaner(predictions, ages, net_worths):
     """
@@ -13,8 +13,10 @@ def outlierCleaner(predictions, ages, net_worths):
     
     cleaned_data = []
 
-    ### your code goes here
+    errors = abs(predictions - net_worths)
 
+    ### your code goes here
+    print errors, heapq.nlargest(9, abs(predictions - net_worths))
     
     return cleaned_data
 
